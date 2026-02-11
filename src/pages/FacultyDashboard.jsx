@@ -15,7 +15,7 @@ const FacultyDashboard = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/tickets');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tickets`);
             const tickets = res.data;
 
             const stats = tickets.reduce((acc, ticket) => {
@@ -139,7 +139,7 @@ const FacultyDashboard = () => {
                                         <button
                                             onClick={async () => {
                                                 try {
-                                                    await axios.put(`http://localhost:5000/api/tickets/${ticket._id}/urgent`);
+                                                    await axios.put(`${import.meta.env.VITE_API_URL}/api/tickets/${ticket._id}/urgent`);
                                                     fetchData();
                                                     addToast('Ticket marked as URGENT!', 'success');
                                                 } catch (err) {

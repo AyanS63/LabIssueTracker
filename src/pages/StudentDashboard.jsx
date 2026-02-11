@@ -27,7 +27,7 @@ const StudentDashboard = () => {
     const submitFeedback = async () => {
         if (!selectedTicket) return;
         try {
-            await axios.post(`http://localhost:5000/api/tickets/${selectedTicket._id}/feedback`, feedbackData);
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/tickets/${selectedTicket._id}/feedback`, feedbackData);
             setShowFeedbackModal(false);
             fetchTickets();
             addToast('Feedback submitted successfully!', 'success');
@@ -44,7 +44,7 @@ const StudentDashboard = () => {
 
     const fetchIp = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/get-ip');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/get-ip`);
             setNewTicket(prev => ({ ...prev, ipAddress: res.data.ip }));
         } catch (err) {
             console.error('Failed to fetch IP', err);
@@ -54,7 +54,7 @@ const StudentDashboard = () => {
 
     const fetchTickets = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/tickets/my');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tickets/my`);
             setTickets(res.data);
             setLoading(false);
         } catch (err) {
@@ -68,7 +68,7 @@ const StudentDashboard = () => {
         e.preventDefault();
         setSubmitting(true);
         try {
-            await axios.post('http://localhost:5000/api/tickets', newTicket);
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/tickets`, newTicket);
             setNewTicket({ ...newTicket, description: '', pcNumber: '' });
             fetchTickets();
             addToast('Issue reported successfully. Support team notified.', 'success');

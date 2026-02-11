@@ -10,7 +10,7 @@ const NotificationBell = () => {
 
     const fetchNotifications = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/notifications');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/notifications`);
             setNotifications(res.data);
             setUnreadCount(res.data.filter(n => !n.read).length);
         } catch (err) {
@@ -38,7 +38,7 @@ const NotificationBell = () => {
 
     const markAsRead = async (id) => {
         try {
-            await axios.put(`http://localhost:5000/api/notifications/${id}/read`);
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/notifications/${id}/read`);
             setNotifications(prev => prev.map(n =>
                 n._id === id ? { ...n, read: true } : n
             ));
@@ -50,7 +50,7 @@ const NotificationBell = () => {
 
     const markAllAsRead = async () => {
         try {
-            await axios.put('http://localhost:5000/api/notifications/read-all');
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/notifications/read-all`);
             setNotifications(prev => prev.map(n => ({ ...n, read: true })));
             setUnreadCount(0);
         } catch (err) {
@@ -60,7 +60,7 @@ const NotificationBell = () => {
 
     const clearAll = async () => {
         try {
-            await axios.delete('http://localhost:5000/api/notifications/clear');
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/notifications/clear`);
             setNotifications([]);
             setUnreadCount(0);
         } catch (err) {

@@ -15,7 +15,7 @@ const NetworkDashboard = () => {
 
     const fetchTickets = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/tickets');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tickets`);
             setTickets(res.data);
             setLoading(false);
         } catch (err) {
@@ -27,7 +27,7 @@ const NetworkDashboard = () => {
 
     const updateStatus = async (id, newStatus) => {
         try {
-            await axios.put(`http://localhost:5000/api/tickets/${id}`, { status: newStatus });
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/tickets/${id}`, { status: newStatus });
             fetchTickets();
             addToast(`Ticket status updated to ${newStatus}`, 'success');
         } catch (err) {
